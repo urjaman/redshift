@@ -36,6 +36,8 @@ typedef struct {
 	int use_fade;
 	/* Whether to preserve gamma ramps if supported by gamma method. */
 	int preserve_gamma;
+	/* Whether to have a fixed amount of steps in the transition ramp. */
+	int steps;
 
 	/* Selected gamma method. */
 	const gamma_method_t *method;
