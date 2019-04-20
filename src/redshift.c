@@ -603,7 +603,7 @@ run_continual_mode(const location_provider_t *provider,
 		   const transition_scheme_t *scheme,
 		   const gamma_method_t *method,
 		   gamma_state_t *method_state,
-		   int use_fade, int preserve_gamma, int verbose)
+		   int use_fade, int preserve_gamma, int verbose, int steps)
 {
 	int r;
 
@@ -714,6 +714,10 @@ run_continual_mode(const location_provider_t *provider,
 			transition_prog =
 				get_transition_progress_from_elevation(
 					scheme, elevation);
+		}
+		if (steps) {
+			int rounded = (transition_prog * steps) + 0.5;
+			transition_prog = (double)rounded / steps;
 		}
 
 		/* Use transition progress to get target color
@@ -1303,7 +1307,7 @@ main(int argc, char *argv[])
 			options.provider, location_state, scheme,
 			options.method, method_state,
 			options.use_fade, options.preserve_gamma,
-			options.verbose);
+			options.verbose, options.steps);
 		if (r < 0) exit(EXIT_FAILURE);
 	}
 	break;
